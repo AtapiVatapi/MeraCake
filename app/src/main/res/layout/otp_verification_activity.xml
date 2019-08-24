@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/phone_no"
+                android:layout_width="0dp"
+                android:lines="2"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="40dp"
+                android:textColor="@android:color/black"
+                android:text="Enter thr 5-digit code recieved on 7827003529"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/chnage_mobile_no"
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@android:color/white"
+                android:layout_width="202dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/chnage_mobile"
+                android:textSize="14sp"
+                android:textColor="@color/DE_ORANGE"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone_no" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="25dp"
+                android:text="Enter OTP"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chnage_mobile_no" />
+
+            <EditText
+                android:letterSpacing="0.4"
+                android:maxLength="6"
+                android:gravity="center"
+                android:id="@+id/otp_input"
+                android:layout_width="0dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="55dp"
+                android:layout_marginEnd="80dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chnage_mobile_no"/>
+
+            <TextView
+                android:id="@+id/incorrect_otp"
+                android:visibility="invisible"
+                style="@style/Button_Transparent_Text_Orange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="Incorrect OTP"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/otp_input" />
+
+            <Button
+                android:id="@+id/confirm_otp_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                android:background="@color/appThemeColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="serif-monospace"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/incorrect_otp">
+
+                <LinearLayout
+                    android:id="@+id/timer_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Resend code in "
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="00:30"
+                        android:textSize="16sp"
+                        android:textColor="#444444"/>
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/resend_otp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:background="@android:color/white"
+                    android:layout_width="96dp"
+                    android:layout_height="24dp"
+                    android:text="Resend OTP"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/DE_ORANGE"
+                    android:visibility="invisible"
+                    tools:layout_editor_absoluteX="145dp"
+                    tools:layout_editor_absoluteY="386dp" />
+
+
+
+            </RelativeLayout>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rel"
+        android:visibility="invisible"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="#90000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:indeterminate="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>

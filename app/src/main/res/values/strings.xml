@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">5Cakes</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_order">My Order</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_profile">Profile</string>
+    <string name="chnage_mobile">Change Mobile Number</string>
+</resources>
