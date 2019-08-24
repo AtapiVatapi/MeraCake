@@ -1,0 +1,132 @@
+package com.vikpoo.a5cakes;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
+public class DashboardFragment extends Fragment implements CakeListAdapter.OnCakeClicked {
+    private RecyclerView mCakesList;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view= inflater.inflate(R.layout.fragment_dashboard,container,false);
+        mCakesList = view.findViewById(R.id.cakes_list);
+        mCakesList.setLayoutManager(new GridLayoutManager(getContext(),2));
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mCakesList.setAdapter(new CakeListAdapter(getContext(), DashboardFragment.this));
+    }
+
+    @Override
+    public void onCakeClicked(int pos) {
+        Toast.makeText(getContext(), "Cake no."+pos, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), CakeDetailsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
+}
+
+class CakeListAdapter extends RecyclerView.Adapter<CakeListAdapter.CakeViewHolder>{
+
+    public interface OnCakeClicked{
+        void onCakeClicked(int pos);
+    }
+
+    public String[] CAKE_NAMES= {
+      "Black Forest",
+            "Red velvet",
+            "Fruit cake",
+            "Pineapple cake",
+            "Oreo cake",
+            "Truffle cake"
+    };
+    public String[] CAKES = {
+            "http://www.petraveikkola.com/wp-content/uploads/2016/04/Petra-Veikkola-Photography-food-photography-and-styling-7-of-47.jpg",
+            "https://twolovesstudio.com/wp-content/uploads/2018/12/How-I-Improved-My-Cake-Photography-In-One-Day-8.jpg",
+            "https://cdn.sallysbakingaddiction.com/wp-content/uploads/2019/01/vanilla-cake-2.jpg",
+            "https://i.pinimg.com/236x/ea/f8/37/eaf837e368c4d6e8260041391f542a22.jpg",
+            "https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?cs=srgb&dl=blackberry-blur-cake-1070850.jpg&fm=jpg",
+            "https://petapixel.com/assets/uploads/2017/11/leicalenscake-800x760.jpg"
+    };
+
+    public String[] COST = {
+      "\u20B9 240",
+            "\u20B9 300",
+            "\u20B9 260",
+            "\u20B9 280",
+            "\u20B9 360",
+            "\u20B9 240"
+    };
+
+    private Context context;
+    private OnCakeClicked listener;
+
+    public CakeListAdapter(Context context , OnCakeClicked listener) {
+        this.context = context;
+        this.listener = listener;
+    }
+
+    @NonNull
+    @Override
+    public CakeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        View view = inflater.inflate(R.layout.cake_list_view,viewGroup,false);
+        return new CakeViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final CakeViewHolder cakeViewHolder, int i) {
+        Glide.with(context)
+                .load(CAKES[i])
+                .into(cakeViewHolder.mCakeImg);
+
+        cakeViewHolder.mCakeName.setText(CAKE_NAMES[i]);
+        cakeViewHolder.mCakeCost.setText(COST[i]);
+
+        cakeViewHolder.mCakeRel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onCakeClicked(cakeViewHolder.getAdapterPosition());
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return 6;
+    }
+
+    class CakeViewHolder extends RecyclerView.ViewHolder{
+        ImageView mCakeImg;
+        RelativeLayout mCakeRel;
+        TextView mCakeName, mCakeCost;
+
+        public CakeViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mCakeImg = itemView.findViewById(R.id.cake_img);
+            mCakeRel = itemView.findViewById(R.id.cake_rel);
+            mCakeName = itemView.findViewById(R.id.cake_name);
+            mCakeCost = itemView.findViewById(R.id.cake_cost);
+        }
+    }
+}
