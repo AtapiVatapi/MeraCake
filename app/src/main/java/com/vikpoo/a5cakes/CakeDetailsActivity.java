@@ -11,7 +11,7 @@ public class CakeDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.statusBarColor));
+       // getWindow().setStatusBarColor(getResources().getColor(R.color.statusBarColor));
 
     }
 }
