@@ -28,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:layout_marginBottom="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -36,60 +37,30 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:background="@android:color/black">
+                    android:background="@drawable/black_gradient">
 
-                    <ViewFlipper
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/cake_image_slider"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:autoStart="true"
-                        android:flipInterval="2000"
-                        android:padding="10dp">
+                        android:layout_height="match_parent"/>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                        <androidx.cardview.widget.CardView
+                        <com.google.android.material.tabs.TabLayout
+                            android:layout_marginTop="32dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="20dp"
+                            app:tabBackground="@drawable/tab_selector"
+                            app:tabGravity="center"
+                            app:tabIndicatorHeight="0dp"
+                            android:id="@+id/tabLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:cardCornerRadius="8dp"
-                            app:cardElevation="6dp">
+                            android:layout_height="10dp"/>
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/cake" />
+                    </RelativeLayout>
 
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:cardCornerRadius="8dp"
-                            app:cardElevation="6dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/orderhistory" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:cardCornerRadius="8dp"
-                            app:cardElevation="6dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/india" />
-
-                        </androidx.cardview.widget.CardView>
-
-
-                    </ViewFlipper>
                 </FrameLayout>
 
                 <RelativeLayout
@@ -113,14 +84,13 @@
                     <LinearLayout
                         android:layout_alignTop="@+id/cake_name"
                         android:padding="2dp"
-
                         android:background="@drawable/message_box"
                         android:orientation="horizontal"
                         android:layout_marginEnd="40dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_height="24dp">
 
                         <ImageView
                             android:background="@drawable/remove_border"
@@ -219,6 +189,59 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
+               <LinearLayout
+                   android:layout_marginTop="8dp"
+                   android:gravity="center"
+                   android:orientation="horizontal"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="20dp"
+
+                       android:layout_marginEnd="20dp"
+                       android:fontFamily="casual"
+                       android:text="Type of Cake : "
+                       android:textColor="@android:color/black"
+                       android:textSize="12sp" />
+
+                   <RadioGroup
+                       android:checkedButton="@id/with_egg"
+                       android:orientation="horizontal"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent">
+
+                       <RadioButton
+                           android:textSize="12sp"
+                           android:id="@+id/with_egg"
+                           android:textColor="@android:color/black"
+                           android:textStyle="bold"
+                           android:fontFamily="casual"
+                           android:layout_marginEnd="40dp"
+                           android:buttonTint="@color/appThemeColorSelected"
+                           android:text="with egg"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content" />
+
+                       <RadioButton
+                           android:textSize="12sp"
+                           android:id="@+id/without_egg"
+                           android:textColor="@android:color/black"
+                           android:textStyle="bold"
+                           android:fontFamily="casual"
+                           android:buttonTint="@color/appThemeColorSelected"
+                           android:text="without egg"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content" />
+
+                   </RadioGroup>
+
+
+               </LinearLayout>
+
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -267,6 +290,30 @@
                         android:textStyle="bold" />
                 </RadioGroup>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="casual"
+                    android:text="Message on Cake (optional) : "
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Happy b'day someone"
+                    android:fontFamily="casual"
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    android:background="@drawable/text_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
 
             </LinearLayout>
 
@@ -283,6 +330,8 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <RelativeLayout
+                android:id="@+id/place_order_rel"
+                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="match_parent"
@@ -313,63 +362,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/tv1"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="20dp"-->
-                    <!--android:layout_marginTop="14dp"-->
-                    <!--android:layout_marginEnd="20dp"-->
-                    <!--android:fontFamily="casual"-->
-                    <!--android:text="Delivery Date : "-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="14sp" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/delivery_date"-->
-                    <!--android:layout_toEndOf="@+id/tv1"-->
-                    <!--android:layout_width="120dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="14dp"-->
-                    <!--android:layout_marginEnd="20dp"-->
-                    <!--android:fontFamily="casual"-->
-                    <!--android:gravity="center"-->
-                    <!--android:background="@android:color/white"-->
-                    <!--android:text="15/08/19"-->
-                    <!--android:letterSpacing="0.2"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="16sp" />-->
-
-                <!--<TextView-->
-                    <!--android:layout_below="@+id/tv1"-->
-                    <!--android:id="@+id/tv2"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="20dp"-->
-                    <!--android:layout_marginTop="18dp"-->
-                    <!--android:layout_marginEnd="20dp"-->
-                    <!--android:fontFamily="casual"-->
-                    <!--android:text="Delivery Time : "-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="14sp" />-->
-
-                <!--<TextView-->
-                    <!--android:layout_below="@+id/delivery_date"-->
-                    <!--android:id="@+id/delivery_time"-->
-                    <!--android:layout_toEndOf="@+id/tv1"-->
-                    <!--android:layout_width="120dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="14dp"-->
-                    <!--android:layout_marginEnd="20dp"-->
-                    <!--android:fontFamily="casual"-->
-                    <!--android:gravity="center"-->
-                    <!--android:background="@android:color/white"-->
-                    <!--android:text="12:01 AM"-->
-                    <!--android:letterSpacing="0.2"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="16sp" />-->
 
             </RelativeLayout>
 
