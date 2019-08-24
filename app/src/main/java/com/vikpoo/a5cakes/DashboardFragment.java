@@ -3,6 +3,7 @@ package com.vikpoo.a5cakes;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,17 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class DashboardFragment extends Fragment implements CakeListAdapter.OnCakeClicked {
     private RecyclerView mCakesList;
+    FirebaseFirestore db;
+    ListenerRegistration registration;
 
     @Nullable
     @Override
@@ -35,6 +44,49 @@ public class DashboardFragment extends Fragment implements CakeListAdapter.OnCak
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mCakesList.setAdapter(new CakeListAdapter(getContext(), DashboardFragment.this));
+        db = FirebaseFirestore.getInstance();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        registration.remove();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        registration = db.collection("available_cakes")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                        if(e != null)
+                        {
+                            Toast.makeText(getContext(), "Some error occured while fetching data.", Toast.LENGTH_SHORT).show();
+                            Log.d("CAKES_FETCH",e.getMessage());
+                            return;
+                        }
+
+                        for(DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges())
+                        {
+                            switch (documentChange.getType())
+                            {
+                                case ADDED:
+                                    Log.d("CAKE_FETCH_ADD",documentChange.getDocument().getData().toString());
+                                    break;
+                                case MODIFIED:
+                                    Log.d("CAKE_FETCH_MOD",documentChange.getDocument().getData().toString());
+                                    break;
+                                case REMOVED:
+                                    Log.d("CAKE_FETCH_DEL",documentChange.getDocument().getData().toString());
+                                    break;
+                            }
+                        }
+                    }
+                });
+
+
     }
 
     @Override
