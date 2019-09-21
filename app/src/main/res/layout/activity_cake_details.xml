@@ -7,8 +7,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
-        app:title="@string/app_name"
-        android:background="@color/appThemeColor"
+        app:titleTextColor="@color/textColor1"
+        android:background="@color/statusBarColor"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
@@ -36,8 +36,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:background="@drawable/black_gradient">
+                    android:layout_height="180dp">
 
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/cake_image_slider"
@@ -49,15 +48,15 @@
                         android:layout_height="match_parent">
 
                         <com.google.android.material.tabs.TabLayout
-                            android:layout_marginTop="32dp"
+                            android:id="@+id/tabLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
                             android:layout_alignParentBottom="true"
+                            android:layout_marginTop="32dp"
                             android:layout_marginBottom="20dp"
                             app:tabBackground="@drawable/tab_selector"
                             app:tabGravity="center"
-                            app:tabIndicatorHeight="0dp"
-                            android:id="@+id/tabLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"/>
+                            app:tabIndicatorHeight="0dp" />
 
                     </RelativeLayout>
 
@@ -93,6 +92,7 @@
                         android:layout_height="24dp">
 
                         <ImageView
+                            android:id="@+id/quantity_minus"
                             android:background="@drawable/remove_border"
                             android:scaleType="centerInside"
                             android:src="@drawable/ic_remove_black"
@@ -101,16 +101,18 @@
 
 
                         <TextView
+                            android:id="@+id/quantity"
                             android:background="@android:color/transparent"
                             android:textSize="16sp"
                             android:gravity="center"
-                            android:text="0"
+                            android:text="1"
                             android:textStyle="bold"
                             android:textColor="@android:color/white"
                             android:layout_width="32dp"
                             android:layout_height="match_parent" />
 
                         <ImageView
+                            android:id="@+id/quantity_plus"
                             android:background="@drawable/plus_border"
                             android:scaleType="centerInside"
                             android:src="@drawable/ic_add_lack"
@@ -134,6 +136,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/cake_flavour"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -157,6 +160,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/cake_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -179,6 +183,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/cake_shape"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -208,6 +213,7 @@
                        android:textSize="12sp" />
 
                    <RadioGroup
+                       android:id="@+id/egg_choice"
                        android:checkedButton="@id/with_egg"
                        android:orientation="horizontal"
                        android:layout_width="match_parent"
@@ -254,15 +260,16 @@
                     android:textSize="12sp" />
 
                 <RadioGroup
+                    android:id="@+id/weight_choice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:checkedButton="@+id/op1"
+                    android:checkedButton="@+id/w1"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/op1"
+                        android:id="@+id/w1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -272,6 +279,7 @@
                         android:textStyle="bold" />
 
                     <RadioButton
+                        android:id="@+id/w2"
                         android:buttonTint="@color/appThemeColorSelected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -281,6 +289,7 @@
                         android:textStyle="bold" />
 
                     <RadioButton
+                        android:id="@+id/w3"
                         android:buttonTint="@color/appThemeColorSelected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -302,6 +311,7 @@
                     android:textSize="12sp" />
 
                 <EditText
+                    android:id="@+id/cake_message"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginStart="20dp"
@@ -319,12 +329,11 @@
 
         </ScrollView>
 
-        <androidx.cardview.widget.CardView
+        <RelativeLayout
+            android:background="@color/statusBarColor"
             android:id="@+id/cardView"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            app:cardBackgroundColor="@color/statusBarColor"
-            app:cardElevation="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -338,7 +347,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/textColor1"
                     android:layout_marginStart="20dp"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -350,13 +359,14 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/cake_price"
                     android:layout_alignParentEnd="true"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/textColor1"
                     android:layout_marginEnd="20dp"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:fontFamily="casual"
-                    android:text="$ 200"
+                    android:text="200"
                     android:textAllCaps="true"
                     android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
@@ -365,7 +375,9 @@
 
             </RelativeLayout>
 
-        </androidx.cardview.widget.CardView>
+
+
+        </RelativeLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

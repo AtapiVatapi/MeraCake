@@ -20,30 +20,50 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DashboardFragment extends Fragment implements CakeListAdapter.OnCakeClicked {
     private RecyclerView mCakesList;
     FirebaseFirestore db;
     ListenerRegistration registration;
+    private CakeListAdapter mCakesAdapter;
+    private List<Cake> mCakesDataList;
+
+    private TextView mHeyMsg;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_dashboard,container,false);
         mCakesList = view.findViewById(R.id.cakes_list);
+        mHeyMsg = view.findViewById(R.id.hey_msg);
+        mHeyMsg.setText("Welcome to 5'cakes.");
         mCakesList.setLayoutManager(new GridLayoutManager(getContext(),2));
+        mCakesDataList = new ArrayList<>();
         return view;
+    }
+
+    public void setHeyMsg(String name)
+    {
+        if(mHeyMsg!=null)
+        mHeyMsg.setText("Hey! "+name+", Let's get you delicious cakes.");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mCakesList.setAdapter(new CakeListAdapter(getContext(), DashboardFragment.this));
+        mCakesAdapter = new CakeListAdapter(getContext(),DashboardFragment.this, mCakesDataList);
+        mCakesList.setAdapter(mCakesAdapter);
         db = FirebaseFirestore.getInstance();
     }
 
@@ -56,7 +76,8 @@ public class DashboardFragment extends Fragment implements CakeListAdapter.OnCak
     @Override
     public void onResume() {
         super.onResume();
-
+        //if internet is there then clear persistence
+        //db.clearPersistence();
         registration = db.collection("available_cakes")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -68,21 +89,14 @@ public class DashboardFragment extends Fragment implements CakeListAdapter.OnCak
                             return;
                         }
 
-                        for(DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges())
+                        mCakesDataList.clear();
+                        for(DocumentSnapshot doc: queryDocumentSnapshots)
                         {
-                            switch (documentChange.getType())
-                            {
-                                case ADDED:
-                                    Log.d("CAKE_FETCH_ADD",documentChange.getDocument().getData().toString());
-                                    break;
-                                case MODIFIED:
-                                    Log.d("CAKE_FETCH_MOD",documentChange.getDocument().getData().toString());
-                                    break;
-                                case REMOVED:
-                                    Log.d("CAKE_FETCH_DEL",documentChange.getDocument().getData().toString());
-                                    break;
-                            }
+                            mCakesDataList.add(doc.toObject(Cake.class));
+//                            Log.d("CAKE_DETAILS",doc.toObject(Cake.class).getPrice().get(0)+"");
+                            mCakesAdapter.notifyDataSetChanged();
                         }
+
                     }
                 });
 
@@ -91,8 +105,9 @@ public class DashboardFragment extends Fragment implements CakeListAdapter.OnCak
 
     @Override
     public void onCakeClicked(int pos) {
-        Toast.makeText(getContext(), "Cake no."+pos, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), "Cake no."+pos, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), CakeDetailsActivity.class);
+        intent.putExtra("CAKE",mCakesDataList.get(pos));
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
@@ -100,42 +115,20 @@ public class DashboardFragment extends Fragment implements CakeListAdapter.OnCak
 
 class CakeListAdapter extends RecyclerView.Adapter<CakeListAdapter.CakeViewHolder>{
 
+    String RUPEE = "\u20B9";
+
+    private List<Cake> CakesList;
     public interface OnCakeClicked{
         void onCakeClicked(int pos);
     }
 
-    public String[] CAKE_NAMES= {
-      "Black Forest",
-            "Red velvet",
-            "Fruit cake",
-            "Pineapple cake",
-            "Oreo cake",
-            "Truffle cake"
-    };
-    public String[] CAKES = {
-            "http://www.petraveikkola.com/wp-content/uploads/2016/04/Petra-Veikkola-Photography-food-photography-and-styling-7-of-47.jpg",
-            "https://twolovesstudio.com/wp-content/uploads/2018/12/How-I-Improved-My-Cake-Photography-In-One-Day-8.jpg",
-            "https://cdn.sallysbakingaddiction.com/wp-content/uploads/2019/01/vanilla-cake-2.jpg",
-            "https://i.pinimg.com/236x/ea/f8/37/eaf837e368c4d6e8260041391f542a22.jpg",
-            "https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?cs=srgb&dl=blackberry-blur-cake-1070850.jpg&fm=jpg",
-            "https://petapixel.com/assets/uploads/2017/11/leicalenscake-800x760.jpg"
-    };
-
-    public String[] COST = {
-      "\u20B9 240",
-            "\u20B9 300",
-            "\u20B9 260",
-            "\u20B9 280",
-            "\u20B9 360",
-            "\u20B9 240"
-    };
-
     private Context context;
     private OnCakeClicked listener;
 
-    public CakeListAdapter(Context context , OnCakeClicked listener) {
+    public CakeListAdapter(Context context , OnCakeClicked listener, List<Cake> CakesList) {
         this.context = context;
         this.listener = listener;
+        this.CakesList = CakesList;
     }
 
     @NonNull
@@ -149,11 +142,11 @@ class CakeListAdapter extends RecyclerView.Adapter<CakeListAdapter.CakeViewHolde
     @Override
     public void onBindViewHolder(@NonNull final CakeViewHolder cakeViewHolder, int i) {
         Glide.with(context)
-                .load(CAKES[i])
+                .load(CakesList.get(i).getImage())
                 .into(cakeViewHolder.mCakeImg);
 
-        cakeViewHolder.mCakeName.setText(CAKE_NAMES[i]);
-        cakeViewHolder.mCakeCost.setText(COST[i]);
+        cakeViewHolder.mCakeName.setText(CakesList.get(i).getName());
+        cakeViewHolder.mCakeCost.setText(RUPEE+" "+CakesList.get(i).getPrice().get(0));
 
         cakeViewHolder.mCakeRel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,7 +158,7 @@ class CakeListAdapter extends RecyclerView.Adapter<CakeListAdapter.CakeViewHolde
 
     @Override
     public int getItemCount() {
-        return 6;
+        return CakesList.size();
     }
 
     class CakeViewHolder extends RecyclerView.ViewHolder{

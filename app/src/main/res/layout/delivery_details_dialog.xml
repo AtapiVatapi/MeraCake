@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/statusBarColor"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Delivery Details"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:fontFamily="casual"
+            android:textStyle="bold"
+            android:textColor="@color/textColor1"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:text="Delivery Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textSize="16sp"
+        android:hint="Enter Delivery Address"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/text_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:text="Select Area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:background="@drawable/text_box"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:backgroundTint="@color/statusBarColor"
+            android:id="@+id/area_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"></Spinner>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:text="Deliver To ( Name )"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textSize="16sp"
+        android:hint="Enter Reciver's Name"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/text_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:text="Deliver To ( Phone )"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textSize="16sp"
+        android:hint="Enter Reciver's Phone"
+        android:inputType="number"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/text_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:textColor="@color/textColor1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:backgroundTint="@color/statusBarColor"
+            android:fontFamily="casual"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+</LinearLayout>

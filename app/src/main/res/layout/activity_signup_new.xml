@@ -107,7 +107,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:foreground="?attr/selectableItemBackground"
-            android:background="@color/DE_ORANGE"
+            android:background="@color/statusBarColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

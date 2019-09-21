@@ -1,7 +1,6 @@
 package com.vikpoo.a5cakes;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -30,11 +29,13 @@ public class SplashActivity extends AppCompatActivity {
         if(user != null)
         {
             // user exists
+            String id = user.getUid();
             handler=new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Intent intent=new Intent(SplashActivity.this, HomeActivity.class);
+                    intent.putExtra("USER_ID",id);
                     startActivity(intent);
                     finish();
                 }

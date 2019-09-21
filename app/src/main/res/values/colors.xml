@@ -3,9 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="appThemeColor">#FEE5CE</color>
+    <color name="appThemeColor">#000000</color>
+    <color name="appThemeColor1">#FEE5CE</color>
+    <color name="textColor1">#FFFFFF</color>
     <color name="appThemeColorSelected">#FFC18D</color>
     <color name="appThemeColor2">#FDF9DA</color>
     <color name="DE_ORANGE">#FF5132</color>
-    <color name="statusBarColor">#F9D6B4</color>
+    <color name="statusBarColor">#663300</color>
+    <color name="statusBarColor1">#F9D6B4</color>
 </resources>

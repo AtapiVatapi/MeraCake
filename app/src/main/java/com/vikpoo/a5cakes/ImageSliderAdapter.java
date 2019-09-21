@@ -17,14 +17,16 @@ public class ImageSliderAdapter extends PagerAdapter {
     public static int IMAGES[] = {R.drawable.india,R.drawable.india,R.drawable.india,R.drawable.india};
 
     private Context context;
+    private String[] CAKE_IMG_URLS;
 
-    public ImageSliderAdapter(Context context) {
+    public ImageSliderAdapter(Context context, String[] URLS) {
         this.context = context;
+        CAKE_IMG_URLS = URLS;
     }
 
     @Override
     public int getCount() {
-        return IMAGES.length;
+        return CAKE_IMG_URLS.length;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class ImageSliderAdapter extends PagerAdapter {
         ImageView imageView = view.findViewById(R.id.image);
 //        imageView.setImageResource(IMAGES[position]);
         Glide.with(context)
-                .load(IMAGES[position])
+                .load(CAKE_IMG_URLS[position])
                 .into(imageView);
         container.addView(view);
         return view;

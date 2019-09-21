@@ -9,7 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".CakeDetailsActivity"></activity>
+        <activity android:name=".CakeDetailsActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <activity
             android:name=".HomeActivity"
@@ -28,6 +29,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity"/>
+        <activity android:name=".OrderDetailsActivity"/>
+
+        <activity android:name=".DeliveryDetailsActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
+
+        <activity android:name=".MyOrdersActivity"/>
+        <activity android:name=".OffersActivity"/>
+        <activity android:name=".HelpAndSupportActivity"/>
+        <activity android:name=".TAndCActivity"/>
+        <activity android:name="AboutUsActivity"/>
 
     </application>
 </manifest>
